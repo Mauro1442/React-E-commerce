@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import Productos from "../Components/Productos";
+import firebase from "../Config/firebase";
 
-class Home extends Component {
-  render() {
-    return (
+function Home() {
+  console.log("firebase", firebase);
+  return (
+    <div>
       <div>
-        <div>
-          <Productos />
-        </div>
+        <Productos />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Home;

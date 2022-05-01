@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Input from "../Components/Input";
+import { Button, Form } from "react-bootstrap";
 
 function Registro() {
   const {
@@ -13,8 +14,8 @@ function Registro() {
     console.log("Form", data);
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           label="Nombre"
           register={{ ...register("nombre", { required: true }) }}
@@ -36,9 +37,11 @@ function Registro() {
         />
         {errors.password && <span>El campo es obligatorio</span>}
 
-        <button type="submit">Registrarme</button>
-      </form>
-    </div>
+        <Button variant="primary" type="submit">
+          Registrarme
+        </Button>
+      </Form>
+    </>
   );
 }
 

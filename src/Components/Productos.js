@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Producto from "./Producto";
 import { getAllProductos } from "../Service/productosServices";
+import { Row } from "react-bootstrap";
+
 function Productos() {
   const [listadoProductos, setListadoProductos] = useState([]);
   const [response, setResponse] = useState({});
@@ -27,14 +29,16 @@ function Productos() {
     return (
       <div>
         <h1>Listado de Productos</h1>
-        {listadoProductos.map((listadoProducto) => (
-          <Producto
-            nombre={listadoProducto.title}
-            thumbnail={listadoProducto.thumbnail}
-            precio={listadoProducto.price}
-            id={listadoProducto.id}
-          />
-        ))}
+        <Row>
+          {listadoProductos.map((listadoProducto) => (
+            <Producto
+              nombre={listadoProducto.title}
+              thumbnail={listadoProducto.thumbnail}
+              precio={listadoProducto.price}
+              id={listadoProducto.id}
+            />
+          ))}
+        </Row>
       </div>
     );
   }
