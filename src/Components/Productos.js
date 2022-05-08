@@ -13,8 +13,8 @@ function Productos() {
       try {
         setLoading(true);
         const response = await getAllProductos();
-        setListadoProductos(response.data.results);
-        setResponse(response.data);
+        setListadoProductos(response);
+        setResponse(response);
         setLoading(false);
       } catch (e) {
         setLoading(false);
@@ -32,9 +32,9 @@ function Productos() {
         <Row>
           {listadoProductos.map((listadoProducto) => (
             <Producto
-              nombre={listadoProducto.title}
-              thumbnail={listadoProducto.thumbnail}
-              precio={listadoProducto.price}
+              nombre={listadoProducto.data().name}
+              thumbnail={listadoProducto.data().thumbnail}
+              precio={listadoProducto.data().price}
               id={listadoProducto.id}
             />
           ))}

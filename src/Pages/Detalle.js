@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getByIdProductos } from "../Service/productosServices";
+
 const estiloDetalle = {
   img: {
     width: "400px",
@@ -15,7 +16,7 @@ function Detalle() {
       try {
         setLoading(true);
         const response = await getByIdProductos(id);
-        setProducto(response.data);
+        setProducto(response);
         setLoading(false);
       } catch (e) {
         setLoading(false);
@@ -28,13 +29,16 @@ function Detalle() {
   } else {
     return (
       <div>
-        <p>Nombre: {producto.title}</p>
-        <p>Precio: {producto.price}</p>
+        <p>Nombre: {producto.data().name}</p>
+        <p>Precio: {producto.data().price}</p>
+        <p>Descripcion: {producto.data().description}</p>
+
         <button>Comprar</button>
         <div>
-          {producto.pictures.map((picture) => (
-            <img src={picture.url} style={estiloDetalle.img}></img>
-          ))}
+          {false &&
+            producto.pictures.map((picture) => (
+              <img src={picture.url} style={estiloDetalle.img}></img>
+            ))}
         </div>
       </div>
     );

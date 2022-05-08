@@ -25,6 +25,13 @@ function Producto(props) {
             <Button variant="primary" as={Link} to={"/producto/" + id}>
               Ver detalle
             </Button>
+            <Button
+              variant="primary"
+              as={Link}
+              to={"/productos/modificar/" + id}
+            >
+              Modificar
+            </Button>
           </Card.Body>
         </Card>
       </Col>
