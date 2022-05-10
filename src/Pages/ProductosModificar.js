@@ -20,6 +20,8 @@ function ProductosModificar() {
         const response = await getByIdProductos(id);
         setValue("name", response.data().name);
         setValue("price", response.data().price);
+        setValue("sku", response.data().sku);
+
         setValue("description", response.data().description);
       } catch (e) {}
     };
@@ -55,6 +57,12 @@ function ProductosModificar() {
           register={{ ...register("price", { required: true }) }}
         />
         {errors.precio && <span>El campo es obligatorio</span>}
+        <Input
+          label="sku"
+          type="number"
+          register={{ ...register("sku", { required: true }) }}
+        />
+        {errors.sku && <span>El campo es obligatorio</span>}
         <Input
           label="Descripcion"
           register={{ ...register("description", { required: true }) }}

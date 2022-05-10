@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getByIdProductos } from "../Service/productosServices";
+import { Button } from "react-bootstrap";
 
 const estiloDetalle = {
   img: {
@@ -29,11 +30,11 @@ function Detalle() {
   } else {
     return (
       <div>
-        <p>Nombre: {producto.data().name}</p>
-        <p>Precio: {producto.data().price}</p>
+        <h1>{producto.data().name}</h1>
+        <p>sku: {producto.data().sku}</p>
         <p>Descripcion: {producto.data().description}</p>
-
-        <button>Comprar</button>
+        <p>Precio: {producto.data().price}</p>{" "}
+        <Button variant="primary">Comprar</Button>
         <div>
           {false &&
             producto.pictures.map((picture) => (

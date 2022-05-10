@@ -16,6 +16,7 @@ function ProductosAlta() {
       const document = await firebase.firestore().collection("productos").add({
         name: data.name,
         price: data.price,
+        sku: data.sku,
         description: data.description,
       });
       console.log("document", document);
@@ -36,13 +37,17 @@ function ProductosAlta() {
           type="number"
           register={{ ...register("price", { required: true }) }}
         />
-        {errors.precio && <span>El campo es obligatorio</span>}
+        {errors.precio && <span>El campo es obligatorio</span>}{" "}
+        <Input
+          label="sku"
+          register={{ ...register("sku", { required: true }) }}
+        />
+        {errors.sku && <span>El campo es obligatorio</span>}
         <Input
           label="Descripcion"
           register={{ ...register("description", { required: true }) }}
         />
         {errors.descripcion && <span>El campo es obligatorio</span>}
-
         <Button variant="primary" type="submit">
           Guardar
         </Button>

@@ -4,7 +4,7 @@ function Menu() {
   return (
     <>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home"> Buzz-O</Navbar.Brand>
+        <Navbar.Brand href="#home">Optica Digital</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -17,7 +17,7 @@ function Menu() {
             <Nav.Link as={Link} to="/ingresar">
               Login
             </Nav.Link>
-
+            {/* solo admin */}
             <NavDropdown title="Productos" id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/productos/alta">
                 Alta

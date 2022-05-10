@@ -28,13 +28,14 @@ function Productos() {
   } else {
     return (
       <div>
-        <h1>Listado de Productos</h1>
+        <h1>Camaras</h1>
         <Row>
           {listadoProductos.map((listadoProducto) => (
             <Producto
               nombre={listadoProducto.data().name}
               thumbnail={listadoProducto.data().thumbnail}
               precio={listadoProducto.data().price}
+              sku={listadoProducto.data().sku}
               id={listadoProducto.id}
             />
           ))}

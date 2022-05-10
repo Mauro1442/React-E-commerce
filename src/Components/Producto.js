@@ -13,7 +13,7 @@ const styles = {
 
 function Producto(props) {
   console.log("Props", props);
-  const { nombre, precio, descripcion, thumbnail, children, id } = props;
+  const { nombre, precio, sku, descripcion, thumbnail, children, id } = props;
   return (
     <>
       <Col>
@@ -21,12 +21,16 @@ function Producto(props) {
           <Card.Img variant="top" src={thumbnail} style={styles.img} />
           <Card.Body>
             <Card.Title>{nombre}</Card.Title>
-            <Card.Text>{precio} </Card.Text>
+            <br></br>
+            <Card.Text>${precio} </Card.Text>
+            <Card.Text> sku: {sku} </Card.Text>
             <Button variant="primary" as={Link} to={"/producto/" + id}>
               Ver detalle
             </Button>
+            <br></br>
+            {/* solo admin */}
             <Button
-              variant="primary"
+              variant="danger"
               as={Link}
               to={"/productos/modificar/" + id}
             >
