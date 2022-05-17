@@ -13,7 +13,7 @@ const styles = {
 
 function Producto(props) {
   console.log("Props", props);
-  const { nombre, precio, sku, descripcion, thumbnail, children, id } = props;
+  const { nombre, precio, sku, thumbnail, id } = props;
   return (
     <>
       <Col>

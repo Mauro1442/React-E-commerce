@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Loading from "../Components/Loading";
 import { useParams } from "react-router-dom";
 import { getByIdProductos } from "../Service/productosServices";
 import { Button } from "react-bootstrap";
@@ -17,7 +18,7 @@ function Detalle() {
       try {
         setLoading(true);
         const response = await getByIdProductos(id);
-        setProducto(response);
+        setProducto(response.data());
         setLoading(false);
       } catch (e) {
         setLoading(false);
@@ -25,25 +26,30 @@ function Detalle() {
     };
     request();
   }, [id]);
-  if (loading) {
-    return <div>Cargando ...</div>;
-  } else {
-    return (
+
+  const comprar = (id) => {
+    console.log("id", id);
+  };
+
+  return (
+    <Loading loading={loading}>
       <div>
-        <h1>{producto.data().name}</h1>
-        <p>sku: {producto.data().sku}</p>
-        <p>Descripcion: {producto.data().description}</p>
-        <p>Precio: {producto.data().price}</p>{" "}
-        <Button variant="primary">Comprar</Button>
+        <h1>{producto?.name}</h1>
+        <p>sku: {producto?.sku}</p>
+        {producto.description && <p>Descripcion: {producto.description}</p>}
+        <p>Precio: {producto?.price}</p>
+        <Button variant="primary" onClick={() => comprar(id)}>
+          Comprar
+        </Button>
         <div>
           {false &&
-            producto.pictures.map((picture) => (
-              <img src={picture.url} style={estiloDetalle.img}></img>
+            producto?.pictures.map((picture) => (
+              <img src={picture.url} style={estiloDetalle.img} alt="..."></img>
             ))}
         </div>
       </div>
-    );
-  }
+    </Loading>
+  );
 }
 
 export default Detalle;

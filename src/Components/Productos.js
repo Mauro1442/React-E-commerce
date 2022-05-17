@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import Producto from "./Producto";
 import { getAllProductos } from "../Service/productosServices";
 import { Row } from "react-bootstrap";
+import Loading from "./Loading";
 
 function Productos() {
   const [listadoProductos, setListadoProductos] = useState([]);
-  const [response, setResponse] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,7 +14,6 @@ function Productos() {
         setLoading(true);
         const response = await getAllProductos();
         setListadoProductos(response);
-        setResponse(response);
         setLoading(false);
       } catch (e) {
         setLoading(false);
@@ -23,15 +22,16 @@ function Productos() {
     request();
   }, []);
 
-  if (loading) {
-    return <div>Cargando ...</div>;
-  } else {
-    return (
-      <div>
-        <h1>Camaras</h1>
+  return (
+    <div>
+      <h1>Camaras</h1>
+      <Loading loading={loading}>
+        {loading && <div>Cargando ...</div>}
+
         <Row>
           {listadoProductos.map((listadoProducto) => (
             <Producto
+              key={listadoProducto.id}
               nombre={listadoProducto.data().name}
               thumbnail={listadoProducto.data().thumbnail}
               precio={listadoProducto.data().price}
@@ -40,9 +40,9 @@ function Productos() {
             />
           ))}
         </Row>
-      </div>
-    );
-  }
+      </Loading>{" "}
+    </div>
+  );
 }
 
 export default Productos;
