@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Input from "../Components/Input";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import firebase from "../Config/firebase";
+import ButtonWithLoading from "../Components/buttonWithLoading";
 function Registro() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [loading, setLoading] = useState(false);
+
   const onSubmit = async (data) => {
+    setLoading(true);
     //envio a firebase
     console.log("Form", data);
     try {
@@ -18,6 +22,7 @@ function Registro() {
         data.password
       );
       console.log("responseUser", responseUser);
+
       if (responseUser.user.uid) {
         const document = await firebase.db.collection("usuarios").add({
           name: data.nombre,
@@ -25,9 +30,11 @@ function Registro() {
           userId: responseUser.user.uid,
         });
         console.log("document", document);
+        setLoading(false);
       }
     } catch (e) {
       console.log(e);
+      setLoading(false);
     }
   };
   return (
@@ -56,9 +63,7 @@ function Registro() {
         />
         {errors.password && <span>El campo es obligatorio</span>}
 
-        <Button variant="primary" type="submit">
-          Registrarme
-        </Button>
+        <ButtonWithLoading loading={loading}>Registrarme</ButtonWithLoading>
       </Form>
     </>
   );
