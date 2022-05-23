@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import Input from "../Components/Input";
 import { Form } from "react-bootstrap";
@@ -6,7 +6,8 @@ import firebase from "../Config/firebase";
 import ButtonWithLoading from "../Components/buttonWithLoading";
 import AlertCustom from "../Components/Alert";
 import { loginMessage } from "../Utils/errorMessage";
-// 27.00
+import AuthContext from "../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 function Login() {
   const {
     register,
@@ -15,18 +16,32 @@ function Login() {
   } = useForm();
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState({ variant: "", text: "" });
+  const context = useContext(AuthContext);
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     //envio a firebase
     setLoading(true);
-    console.log("Form", data);
     try {
       const responseUser = await firebase.auth.signInWithEmailAndPassword(
         data.email,
         data.password
       );
-      console.log("responseUser", responseUser.user.uid);
+      if (responseUser.user.uid) {
+        const userInfo = await firebase.db
+          .collection("usuarios")
+          .where("userId", "==", responseUser.user.uid)
+          .get();
+        if (userInfo) {
+          const nombre = userInfo.docs[0]?.data().name;
+          setAlert({
+            variant: "success",
+            text: "Bienvenido " + (nombre || ""),
+          });
+          context.loginUser(userInfo.docs[0]?.data());
+          navigate("/");
+        }
+      }
       setLoading(false);
-      setAlert({ variant: "success", text: "Bienvenido" });
     } catch (e) {
       console.log(e);
       setLoading(false);

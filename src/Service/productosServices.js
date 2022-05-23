@@ -3,7 +3,12 @@ import firebase from "../Config/firebase";
 
 export async function getAllProductos(buscar) {
   //  return axios.get("/sites/MLA/search?q=" + buscar);
-  const querySnapshot = await firebase.db.collection("productos").get();
+  const querySnapshot = await firebase.db
+    .collection("productos")
+    .orderBy("name")
+    .startAt(buscar)
+    .endAt(buscar + "\uf8ff")
+    .get();
   return querySnapshot.docs;
 }
 export async function getByIdProductos(id) {

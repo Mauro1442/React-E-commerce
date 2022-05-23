@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { Card, Button, Col } from "react-bootstrap";
+import { Card, Col } from "react-bootstrap";
+import Acciones from "./Acciones";
 const styles = {
   card: {
     width: "18rem",
@@ -13,6 +13,7 @@ const styles = {
 
 function Producto(props) {
   console.log("Props", props);
+
   const { nombre, precio, sku, thumbnail, id } = props;
   return (
     <>
@@ -24,18 +25,7 @@ function Producto(props) {
             <br></br>
             <Card.Text>${precio} </Card.Text>
             <Card.Text> sku: {sku} </Card.Text>
-            <Button variant="primary" as={Link} to={"/producto/" + id}>
-              Ver detalle
-            </Button>
-            <br></br>
-            {/* solo admin */}
-            <Button
-              variant="danger"
-              as={Link}
-              to={"/productos/modificar/" + id}
-            >
-              Modificar
-            </Button>
+            <Acciones id={id} />
           </Card.Body>
         </Card>
       </Col>
