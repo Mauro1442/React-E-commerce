@@ -7,7 +7,7 @@ const styles = {
     marginBottom: "20px",
   },
   img: {
-    width: "100px",
+    width: "150px",
   },
 };
 
@@ -19,10 +19,10 @@ function Producto(props) {
     <>
       <Col>
         <Card style={styles.card}>
-          <Card.Img variant="top" src={thumbnail} style={styles.img} />
           <Card.Body>
             <Card.Title>{nombre}</Card.Title>
-            <br></br>
+            <Card.Img variant="top" src={thumbnail} style={styles.img} />
+
             <Card.Text>${precio} </Card.Text>
             <Card.Text> sku: {sku} </Card.Text>
             <Acciones id={id} />
